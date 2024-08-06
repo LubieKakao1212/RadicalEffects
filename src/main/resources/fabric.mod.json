@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "radical-effects",
+	"version": "${version}",
+	"name": "Radical Effects",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/radical-effects/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.lubiekakao1212.RadicalEffects"
+		],
+		"client": [
+			"com.lubiekakao1212.RadicalEffectsClient"
+		]
+	},
+	"mixins": [
+		"radical-effects.mixins.json",
+		{
+			"config": "radical-effects.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.19.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.lubiekakao1212.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "LivingDamageMixin",
+    "PlayerDamageMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}
