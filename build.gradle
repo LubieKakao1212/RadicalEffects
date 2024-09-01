@@ -6,16 +6,36 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
+//Load Access Properties (ghReadPAT, ghUsr)
+ext.accessProps = new Properties()
+var propsFile = file("access.properties")
+if(propsFile.exists()) {
+	propsFile.withInputStream {
+		accessProps.load(it)
+	}
+}
+
+
 base {
 	archivesName = project.archives_base_name
 }
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
+	maven {
+		name = "GitHubPackages QuLib"
+		url = uri("https://maven.pkg.github.com/LubieKakao1212/qulib-kt")
+		credentials {
+			username = accessProps.ghUsr ?: System.getenv("USERNAME")
+			password = accessProps.ghReadPAT ?: System.getenv("TOKEN")
+		}
+	}
+
+	maven { url 'https://maven.wispforest.io' }
+
+	maven {
+		name = "Terraformers"
+		url = "https://maven.terraformersmc.com/"
+	}
 }
 
 loom {
@@ -29,6 +49,7 @@ loom {
 	}
 
 }
+
 
 dependencies {
 	// To change the versions see the gradle.properties file
@@ -46,6 +67,15 @@ dependencies {
 	modRuntimeOnly('TechReborn:TechReborn-1.19:5.7.0') { transitive = false }
 	modRuntimeOnly('RebornCore:RebornCore-1.19:5.7.0') { transitive = false }
 
+	//QuLib
+	modImplementation "com.LubieKakao1212.qulib:qulib-kt-fabric-${minecraft_version}:${qulib_version}"
+
+	//owo
+	modImplementation "io.wispforest:owo-lib:${project.owo_version}+${project.minecraft_version}"
+	annotationProcessor "io.wispforest:owo-lib:${project.owo_version}+${project.minecraft_version}"
+
+	//ModMenu
+	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
 
 processResources {

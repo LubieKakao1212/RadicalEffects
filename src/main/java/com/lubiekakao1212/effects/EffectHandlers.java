@@ -1,22 +1,18 @@
 package com.lubiekakao1212.effects;
 
 import com.lubiekakao1212.RadicalEffects;
+import com.lubiekakao1212.damage.RadicalDamageTypes;
 import com.lubiekakao1212.damage.RadicalDamageTags;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Identifier;
 
 public class EffectHandlers {
 
-    private static final RegistryKey<DamageType> DAMAGE_VOLATILE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(RadicalEffects.MODID, "volatile_explosion"));
 
     public static void explodeVolatile(LivingEntity entity) {
         var effect = entity.getStatusEffect(RadicalStatusEffects.VOLATILE);
@@ -26,7 +22,7 @@ public class EffectHandlers {
 
         var world = entity.world;
         var random = entity.getRandom();
-        var damageSource = world.getDamageSources().create(DAMAGE_VOLATILE);
+        var damageSource = world.getDamageSources().create(RadicalDamageTypes.DAMAGE_VOLATILE);
 
         var amp = (effect.getAmplifier() + 1);
         var knockback = (int) (effect.getDuration() / RadicalEffects.volatileKnockbackDurationStep + 2) * amp * RadicalEffects.volatileKnockbackScale;

@@ -1,8 +1,16 @@
 package com.lubiekakao1212;
 
 import com.lubiekakao1212.effects.RadicalStatusEffects;
+import com.lubiekakao1212.entity.RadicalEntities;
+import com.lubiekakao1212.item.RadicalItems;
+import com.lubiekakao1212.network.RadicalNetwork;
+import io.wispforest.owo.registration.reflect.FieldRegistrationHandler;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.DefaultAttributeRegistry;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,5 +41,10 @@ public class RadicalEffects implements ModInitializer {
 
 		//LOGGER.info("Hello Fabric world!");
 		RadicalStatusEffects.init();
+
+		RadicalNetwork.init();
+
+		FieldRegistrationHandler.register(RadicalItems.class, MODID, false);
+		FieldRegistrationHandler.register(RadicalEntities.class, MODID, false);
 	}
 }
