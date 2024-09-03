@@ -5,13 +5,27 @@ import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.entity.player.PlayerEntity;
-import org.joml.Math;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RadicalUtil {
+
+    private static final String[] UNITS = new String[]{
+            "",
+            "K",
+            "M",
+            "B",
+            "T",
+            "Qu",
+            "Qt",
+            "Sx",
+            "Sp",
+            "Oc",
+            "No",
+            "Error",
+    };
 
     public static int drainPlayerEnergyRandomly(PlayerEntity player, int energyToDrain, Transaction transaction) {
         final var minDrain = 10;
@@ -51,5 +65,23 @@ public class RadicalUtil {
         return energyDrained;
     }
 
+    public static String toShortString(long value) {
+        int i = 0;
+        int j = 1;
+        var v = value;
+        while(v > 1000) {
+            v /= 1000;
+            i++;
+            j *= 1000;
+        }
 
+        var truncated = value / j;
+        var str = Long.toString(truncated);
+        if(j > 1) {
+            var decimal = (value / (j / 10)) % 10;
+            return str + "." + decimal + UNITS[i];
+        }
+
+        return str;
+    }
 }

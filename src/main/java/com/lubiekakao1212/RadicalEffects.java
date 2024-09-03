@@ -4,6 +4,7 @@ import com.lubiekakao1212.effects.RadicalStatusEffects;
 import com.lubiekakao1212.entity.RadicalEntities;
 import com.lubiekakao1212.item.RadicalItems;
 import com.lubiekakao1212.network.RadicalNetwork;
+import com.lubiekakao1212.recipe.RadicalRecipes;
 import io.wispforest.owo.registration.reflect.FieldRegistrationHandler;
 import net.fabricmc.api.ModInitializer;
 
@@ -46,5 +47,7 @@ public class RadicalEffects implements ModInitializer {
 
 		FieldRegistrationHandler.register(RadicalItems.class, MODID, false);
 		FieldRegistrationHandler.register(RadicalEntities.class, MODID, false);
+
+		RadicalRecipes.init();
 	}
 }

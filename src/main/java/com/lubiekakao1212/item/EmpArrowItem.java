@@ -2,12 +2,17 @@ package com.lubiekakao1212.item;
 
 import com.lubiekakao1212.entity.EmpArrowEntity;
 import com.lubiekakao1212.entity.RadicalEntities;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ArrowItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Objects;
 
 public class EmpArrowItem extends ArrowItem {
@@ -21,5 +26,14 @@ public class EmpArrowItem extends ArrowItem {
         var arrow = new EmpArrowEntity(world, shooter).initFromStack(stack);
         arrow.setOwner(shooter);
         return arrow;
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        var level = stack.get(EmpShardItem.LEVEL_KEY);
+
+        tooltip.add(Text.translatable("item.radical-effects.emp.level", level).formatted(Formatting.AQUA));
+
+        super.appendTooltip(stack, world, tooltip, context);
     }
 }
