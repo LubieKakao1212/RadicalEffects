@@ -27,13 +27,4 @@ public class EmpArrowItem extends ArrowItem {
         arrow.setOwner(shooter);
         return arrow;
     }
-
-    @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        var level = stack.get(EmpShardItem.LEVEL_KEY);
-
-        tooltip.add(Text.translatable("item.radical-effects.emp.level", level).formatted(Formatting.AQUA));
-
-        super.appendTooltip(stack, world, tooltip, context);
-    }
 }

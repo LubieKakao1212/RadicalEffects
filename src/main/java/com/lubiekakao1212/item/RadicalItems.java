@@ -9,6 +9,6 @@ public class RadicalItems implements ItemRegistryContainer {
     public static final Item EMP_ARROW = new EmpArrowItem(new OwoItemSettings());
 
     public static final Item EMP_CRYSTAL = new EmpCrystalItem(new OwoItemSettings().maxCount(1));
-    public static final Item EMP_SHARD = new EmpShardItem(new OwoItemSettings().maxCount(64));
+    public static final Item EMP_SHARD = new Item(new OwoItemSettings().maxCount(64));
 
 }

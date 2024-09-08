@@ -1,5 +1,6 @@
 package com.lubiekakao1212;
 
+import com.lubiekakao1212.apilookup.IEmpLevel;
 import com.lubiekakao1212.effects.RadicalStatusEffects;
 import com.lubiekakao1212.entity.RadicalEntities;
 import com.lubiekakao1212.item.RadicalItems;
@@ -49,5 +50,7 @@ public class RadicalEffects implements ModInitializer {
 		FieldRegistrationHandler.register(RadicalEntities.class, MODID, false);
 
 		RadicalRecipes.init();
+
+		IEmpLevel.init();
 	}
 }

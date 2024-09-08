@@ -1,6 +1,7 @@
 package com.lubiekakao1212.recipe;
 
-import com.lubiekakao1212.item.EmpShardItem;
+import com.lubiekakao1212.apilookup.IEmpLevel;
+import com.lubiekakao1212.apilookup.IMutableEmpLevel;
 import com.lubiekakao1212.item.RadicalItems;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,8 @@ import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+
+import java.util.Objects;
 
 public class EmpArrowRecipe extends SpecialCraftingRecipe {
 
@@ -49,7 +52,7 @@ public class EmpArrowRecipe extends SpecialCraftingRecipe {
 
             if(EMP_SHARD.test(s0) && STICK.test(s1) && FEATHER.test(s2)) {
                 foundPattern = true;
-                level = s0.get(EmpShardItem.LEVEL_KEY);
+                level = Objects.requireNonNull(IEmpLevel.ITEM.find(s0, null)).getLevel();
             }
         }
 
@@ -70,18 +73,18 @@ public class EmpArrowRecipe extends SpecialCraftingRecipe {
     @Override
     public ItemStack craft(CraftingInventory inventory, DynamicRegistryManager registryManager) {
         var output = new ItemStack(RadicalItems.EMP_ARROW, 4);
-        long level = -1;
+        var level = (IMutableEmpLevel)IEmpLevel.ITEM.find(output, null);
+        assert level != null;
 
         for (int i=0; i<inventory.getWidth(); i++) {
             var s = inventory.getStack(i);
             if(!s.isEmpty()) {
-                level = s.get(EmpShardItem.LEVEL_KEY);
-                break;
+                //first row contains only one emp shard
+                level.setLevel(Objects.requireNonNull(IEmpLevel.ITEM.find(s, null)).getLevel());
+                return output;
             }
         }
-        output.put(EmpShardItem.LEVEL_KEY, level);
-
-        return output;
+        throw new RuntimeException("Invalid crafting: emp arrow");
     }
 
     /**

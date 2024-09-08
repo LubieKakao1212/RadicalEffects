@@ -2,6 +2,7 @@ package com.lubiekakao1212;
 
 import com.lubiekakao1212.entity.RadicalEntities;
 import com.lubiekakao1212.entity.renderer.EmpArrowRenderer;
+import com.lubiekakao1212.event.RadicalEventsClient;
 import com.lubiekakao1212.network.RadicalNetwork;
 import com.lubiekakao1212.network.RadicalNetworkClient;
 import net.fabricmc.api.ClientModInitializer;
@@ -14,6 +15,8 @@ public class RadicalEffectsClient implements ClientModInitializer {
 
 		RadicalNetworkClient.init();
 		EntityRendererRegistry.register(RadicalEntities.EMP_ARROW, EmpArrowRenderer::new);
+
+		RadicalEventsClient.init();
 
 	}
 }

@@ -1,8 +1,8 @@
 package com.lubiekakao1212.recipe;
 
-import com.lubiekakao1212.item.EmpChargeItem;
+import com.lubiekakao1212.apilookup.IEmpLevel;
+import com.lubiekakao1212.apilookup.IMutableEmpLevel;
 import com.lubiekakao1212.item.EmpCrystalItem;
-import com.lubiekakao1212.item.EmpShardItem;
 import com.lubiekakao1212.item.RadicalItems;
 import com.lubiekakao1212.util.EmpLevelUtil;
 import net.minecraft.inventory.CraftingInventory;
@@ -14,6 +14,8 @@ import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+
+import java.util.Objects;
 
 public class EmpShardRecipe extends SpecialCraftingRecipe {
 
@@ -46,10 +48,11 @@ public class EmpShardRecipe extends SpecialCraftingRecipe {
                         return false;
                     }
 
-                    var level = EmpLevelUtil.levelFromEnergy(itemStack.get(EmpCrystalItem.ENERGY_KEY));
+                    var level = Objects.requireNonNull(IEmpLevel.ITEM.find(itemStack, null)).getLevel(); //EmpLevelUtil.levelFromEnergy(itemStack.get(EmpCrystalItem.ENERGY_KEY));
 
                     if(level > 0) {
                         hasCrystal = true;
+                        //not break
                         continue;
                     }
                     return false;
@@ -76,18 +79,19 @@ public class EmpShardRecipe extends SpecialCraftingRecipe {
     public ItemStack craft(CraftingInventory inventory, DynamicRegistryManager registryManager) {
         //TODO unhardcode 64
         var result = new ItemStack(RadicalItems.EMP_SHARD, 64);
-        long level = -1;
+        var level = (IMutableEmpLevel)IEmpLevel.ITEM.find(result, null);
+        assert level != null;
 
         for (int j = 0; j < inventory.size(); j++) {
             var stack = inventory.getStack(j);
             if(!stack.isEmpty()) {
-                level = EmpLevelUtil.levelFromEnergy(stack.get(EmpCrystalItem.ENERGY_KEY));
-                break;
+                //emp crystal is the only item here
+                level.setLevel(Objects.requireNonNull(IEmpLevel.ITEM.find(stack, null)).getLevel());
+                return result;
             }
         }
 
-        result.put(EmpShardItem.LEVEL_KEY, level);
-        return result;
+        throw new RuntimeException("Invalid crafting: emp shard");
     }
 
     /**
