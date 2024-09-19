@@ -72,7 +72,7 @@ public class EmpArrowRecipe extends SpecialCraftingRecipe {
      */
     @Override
     public ItemStack craft(CraftingInventory inventory, DynamicRegistryManager registryManager) {
-        var output = new ItemStack(RadicalItems.EMP_ARROW, 4);
+        var output = new ItemStack(RadicalItems.EMP_ARROW, 2);
         var level = (IMutableEmpLevel)IEmpLevel.ITEM.find(output, null);
         assert level != null;
 

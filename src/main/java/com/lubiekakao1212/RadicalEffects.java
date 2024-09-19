@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class RadicalEffects implements ModInitializer {
 
-	public static final int powerDamageScale = 100000;
+	public static final int powerDamageScale = 200000;
 	public static final float energyDamageMin = 0.5f;
 
 	public static final float volatileKnockbackScale = 0.05f;

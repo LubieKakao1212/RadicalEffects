@@ -35,9 +35,4 @@ public class EmpArrowEntity extends AoeArrowEntity {
     protected Record createExplodePacket(float radius, float strength) {
         return new PacketClientAoeExplosion(getPos(), radius);
     }
-
-    @Override
-    protected ItemStack asItemStack() {
-        return new ItemStack(RadicalItems.EMP_ARROW);
-    }
 }

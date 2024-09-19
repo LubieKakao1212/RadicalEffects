@@ -78,7 +78,7 @@ public class EmpShardRecipe extends SpecialCraftingRecipe {
     @Override
     public ItemStack craft(CraftingInventory inventory, DynamicRegistryManager registryManager) {
         //TODO unhardcode 64
-        var result = new ItemStack(RadicalItems.EMP_SHARD, 64);
+        var result = new ItemStack(RadicalItems.EMP_SHARD, 4);
         var level = (IMutableEmpLevel)IEmpLevel.ITEM.find(result, null);
         assert level != null;
 

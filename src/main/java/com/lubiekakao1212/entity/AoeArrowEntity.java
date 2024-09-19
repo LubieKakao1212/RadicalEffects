@@ -1,6 +1,8 @@
 package com.lubiekakao1212.entity;
 
+import com.lubiekakao1212.apilookup.IEmpLevel;
 import com.lubiekakao1212.damage.RadicalDamageTypes;
+import com.lubiekakao1212.item.RadicalItems;
 import com.lubiekakao1212.network.RadicalNetwork;
 import com.lubiekakao1212.network.packet.PacketClientAoeExplosion;
 import com.lubiekakao1212.qulib.math.extensions.AABBExtensionsKt;
@@ -23,6 +25,8 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
+import java.util.Optional;
+
 public abstract class AoeArrowEntity extends PersistentProjectileEntity {
 
     protected static final NbtKey<Float> radiusKey = new NbtKey<>("aoeRadius", NbtKey.Type.FLOAT);
@@ -32,6 +36,7 @@ public abstract class AoeArrowEntity extends PersistentProjectileEntity {
     protected float radius;
     protected float power;
     protected int fuse = 20;
+    protected ItemStack sourceStack;
     private boolean onCountdown = false;
 
     public AoeArrowEntity(EntityType<? extends AoeArrowEntity> entityType, World world) {
@@ -62,11 +67,13 @@ public abstract class AoeArrowEntity extends PersistentProjectileEntity {
         this.radius = radius;
     }
 
-    public AoeArrowEntity initFromStack(ItemStack stackNbt) {
-        this.radius = stackNbt.getOr(radiusKey, 3f);
-        this.power = stackNbt.getOr(powerKey, 1f);
+    public AoeArrowEntity initFromStack(ItemStack stack) {
+        this.radius = stack.getOr(radiusKey, 3f);
+        this.power = Optional.ofNullable(IEmpLevel.ITEM.find(stack, null)).map(IEmpLevel::getLevel).orElse(1L);//stackNbt.getOr(powerKey, 1f);
 
-        fuse = stackNbt.getOr(fuseKey, 20);
+        fuse = stack.getOr(fuseKey, 20);
+
+        this.sourceStack = stack.copyWithCount(1);
 
         return this;
     }
@@ -117,7 +124,7 @@ public abstract class AoeArrowEntity extends PersistentProjectileEntity {
         var aabb = new Box(getPos(), getPos()).expand(radius);
         var owner = getOwner();
 
-        var livingEntities = world.getEntitiesByType(TypeFilter.instanceOf(LivingEntity.class), aabb, e -> e != owner);
+        var livingEntities = world.getEntitiesByType(TypeFilter.instanceOf(LivingEntity.class), aabb, e -> true/*TODO e != owner*/);
 
         for (var living : livingEntities) {
             var dst = (float) Math.sqrt(AABBExtensionsKt.sqrDistanceTo(living.getBoundingBox(), new Vector3m(getPos())));//player.getPos().distanceTo(getPos());
@@ -144,4 +151,9 @@ public abstract class AoeArrowEntity extends PersistentProjectileEntity {
     protected abstract void affectEntityDirect(LivingEntity entity);
 
     protected abstract Record createExplodePacket(float radius, float strength);
+
+    @Override
+    protected ItemStack asItemStack() {
+        return sourceStack;
+    }
 }
