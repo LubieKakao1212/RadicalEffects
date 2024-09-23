@@ -1,4 +1,17 @@
 {
-  "type": "radical-effects:emp_shard",
-  "category": "misc"
+  "type": "radical-effects:shaped_emp",
+  "category": "misc",
+  "group": "",
+  "pattern": [
+    "C"
+  ],
+  "key": {
+    "C": {
+      "item": "radical-effects:emp_crystal"
+    }
+  },
+  "result": {
+    "count": 4,
+    "item": "radical-effects:emp_shard"
+  }
 }

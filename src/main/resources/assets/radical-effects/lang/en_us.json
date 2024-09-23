@@ -1,6 +1,7 @@
 {
   "item.radical-effects.emp_crystal": "Emp Crystal",
   "item.radical-effects.emp_shard": "Emp Shard",
+  "item.radical-effects.emp_arrow": "Emp Arrow",
   "item.radical-effects.emp.level": "%s ¤",
   "item.radical-effects.emp.charge": "%s E/%s E"
 }

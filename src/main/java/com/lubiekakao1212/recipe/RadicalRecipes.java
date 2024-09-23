@@ -10,12 +10,15 @@ import net.minecraft.util.Identifier;
 
 public class RadicalRecipes {
 
-    public static final RecipeSerializer<EmpShardRecipe> EMP_SHARD = new SpecialRecipeSerializer<>(EmpShardRecipe::new);
-    public static final RecipeSerializer<EmpArrowRecipe> EMP_ARROW = new SpecialRecipeSerializer<>(EmpArrowRecipe::new);
+    //public static final RecipeSerializer<EmpShardRecipe> EMP_SHARD = new SpecialRecipeSerializer<>(EmpShardRecipe::new);
+    //public static final RecipeSerializer<EmpArrowRecipe> EMP_ARROW = new SpecialRecipeSerializer<>(EmpArrowRecipe::new);
+
+    public static final RecipeSerializer<ShapedEmpLevelRecipe> SHAPED_EMP = new ShapedEmpLevelRecipe.Serializer();
 
     public static void init() {
-        Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(RadicalEffects.MODID, "emp_shard"), EMP_SHARD);
-        Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(RadicalEffects.MODID, "emp_arrow"), EMP_ARROW);
+        //Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(RadicalEffects.MODID, "emp_shard"), EMP_SHARD);
+        //Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(RadicalEffects.MODID, "emp_arrow"), EMP_ARROW);
+        Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(RadicalEffects.MODID, "shaped_emp"), SHAPED_EMP);
     }
 
 }

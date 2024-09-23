@@ -1,4 +1,25 @@
 {
-  "type": "radical-effects:emp_arrow",
-  "category": "misc"
+  "type": "radical-effects:shaped_emp",
+  "category": "misc",
+  "group": "",
+  "pattern": [
+    "S",
+    "#",
+    "F"
+  ],
+  "key": {
+    "S": {
+      "item": "radical-effects:emp_shard"
+    },
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    }
+  },
+  "result": {
+    "count": 4,
+    "item": "radical-effects:emp_arrow"
+  }
 }
