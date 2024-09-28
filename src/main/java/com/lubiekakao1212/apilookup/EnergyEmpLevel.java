@@ -1,12 +1,11 @@
 package com.lubiekakao1212.apilookup;
 
 import com.lubiekakao1212.util.EmpLevelStats;
-import com.lubiekakao1212.util.EmpLevelUtil;
+import com.lubiekakao1212.util.EmpUtil;
 import io.wispforest.owo.nbt.NbtKey;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyItem;
 
 import java.util.List;
@@ -37,6 +36,6 @@ public class EnergyEmpLevel implements IEmpLevel {
 
     @Override
     public long getLevel() {
-        return EmpLevelUtil.levelFromEnergy(stack.get(ENERGY_KEY));
+        return EmpUtil.levelFromEnergy(stack.get(ENERGY_KEY));
     }
 }

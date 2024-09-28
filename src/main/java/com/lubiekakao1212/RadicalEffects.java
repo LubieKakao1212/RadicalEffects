@@ -1,6 +1,7 @@
 package com.lubiekakao1212;
 
 import com.lubiekakao1212.apilookup.IEmpLevel;
+import com.lubiekakao1212.config.RadicalConfigCommon;
 import com.lubiekakao1212.effects.RadicalStatusEffects;
 import com.lubiekakao1212.entity.RadicalEntities;
 import com.lubiekakao1212.item.RadicalItems;
@@ -17,6 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class RadicalEffects implements ModInitializer {
+
+	public static final RadicalConfigCommon CONFIG = RadicalConfigCommon.createAndLoad();
 
 	public static final int powerDamageScale = 200000;
 	public static final float energyDamageMin = 0.5f;

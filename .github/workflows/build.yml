@@ -27,6 +27,8 @@ jobs:
           distribution: 'microsoft'
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
+      - run: echo "TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
+      - run: echo "USERNAME=${{ github.actor }}" >> $GITHUB_ENV
       - name: build
         run: ./gradlew build
       - name: capture build artifacts

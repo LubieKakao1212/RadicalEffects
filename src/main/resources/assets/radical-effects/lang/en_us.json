@@ -3,5 +3,14 @@
   "item.radical-effects.emp_shard": "Emp Shard",
   "item.radical-effects.emp_arrow": "Emp Arrow",
   "item.radical-effects.emp.level": "%s ¤",
-  "item.radical-effects.emp.charge": "%s E/%s E"
+  "item.radical-effects.emp.charge": "%s E/%s E",
+
+  "text.config.radical-effects.category.empConfig": "EMP",
+  "text.config.radical-effects.section.empCost": "Cost",
+  "text.config.radical-effects.option.empConfig.levelCostBase": "Base Level Cost",
+  "text.config.radical-effects.option.empConfig.levelCostMultiplier": "Level Cost Multiplier",
+  "text.config.radical-effects.section.empDrain": "Drain Amounts",
+  "text.config.radical-effects.option.empConfig.drainRatioPerLevel": "Proportional Drain Per Level",
+  "text.config.radical-effects.option.empConfig.drainLinearPerLevel": "Constant Drain Per Level",
+  "text.config.radical-effects.option.empConfig.drainDistributionFactor": "Drain Distribution Factor"
 }

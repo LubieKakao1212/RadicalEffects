@@ -1,6 +1,5 @@
 package com.lubiekakao1212.item;
 
-import com.lubiekakao1212.util.EmpLevelUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import team.reborn.energy.api.base.SimpleEnergyItem;

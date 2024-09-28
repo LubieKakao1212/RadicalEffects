@@ -1,21 +1,15 @@
 package com.lubiekakao1212.entity;
 
-import com.lubiekakao1212.apilookup.IEmpLevel;
-import com.lubiekakao1212.damage.RadicalDamageTypes;
-import com.lubiekakao1212.item.RadicalItems;
 import com.lubiekakao1212.network.RadicalNetwork;
-import com.lubiekakao1212.network.packet.PacketClientAoeExplosion;
 import com.lubiekakao1212.qulib.math.extensions.AABBExtensionsKt;
 import com.lubiekakao1212.qulib.math.mc.Vector3m;
 import io.wispforest.owo.nbt.NbtKey;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -25,13 +19,13 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
-import java.util.Optional;
-
 public abstract class AoeArrowEntity extends PersistentProjectileEntity {
 
     protected static final NbtKey<Float> radiusKey = new NbtKey<>("aoeRadius", NbtKey.Type.FLOAT);
     protected static final NbtKey<Float> powerKey = new NbtKey<>("power", NbtKey.Type.FLOAT);
     protected static final NbtKey<Integer> fuseKey = new NbtKey<>("fuse", NbtKey.Type.INT);
+    protected static final NbtKey<ItemStack> sourceStackKey = new NbtKey<>("sourceItem", NbtKey.Type.ITEM_STACK);
+    protected static final NbtKey<Boolean> onCountdownKey = new NbtKey<>("sourceItem", NbtKey.Type.BOOLEAN);
 
     protected float radius;
     protected float power;
@@ -69,7 +63,7 @@ public abstract class AoeArrowEntity extends PersistentProjectileEntity {
 
     public AoeArrowEntity initFromStack(ItemStack stack) {
         this.radius = stack.getOr(radiusKey, 3f);
-        this.power = Optional.ofNullable(IEmpLevel.ITEM.find(stack, null)).map(IEmpLevel::getLevel).orElse(1L);//stackNbt.getOr(powerKey, 1f);
+        this.power = stack.getOr(powerKey, 1f);//Optional.ofNullable(IEmpLevel.ITEM.find(stack, null)).map(IEmpLevel::getLevel).orElse(1L);//stackNbt.getOr(powerKey, 1f);
 
         fuse = stack.getOr(fuseKey, 20);
 
@@ -155,5 +149,27 @@ public abstract class AoeArrowEntity extends PersistentProjectileEntity {
     @Override
     protected ItemStack asItemStack() {
         return sourceStack;
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+
+        this.radius = nbt.getOr(radiusKey, 3f);
+        this.power = nbt.getOr(powerKey, 1f);
+        this.sourceStack = nbt.getOr(sourceStackKey, ItemStack.EMPTY);
+        this.fuse = nbt.getOr(fuseKey, 20);
+        this.onCountdown = nbt.getOr(onCountdownKey, false);
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+
+        nbt.put(radiusKey, radius);
+        nbt.put(powerKey, power);
+        nbt.put(sourceStackKey, sourceStack);
+        nbt.put(fuseKey, fuse);
+        nbt.put(onCountdownKey, onCountdown);
     }
 }
