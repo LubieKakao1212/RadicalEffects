@@ -12,5 +12,14 @@
   "text.config.radical-effects.section.empDrain": "Drain Amounts",
   "text.config.radical-effects.option.empConfig.drainRatioPerLevel": "Proportional Drain Per Level",
   "text.config.radical-effects.option.empConfig.drainLinearPerLevel": "Constant Drain Per Level",
-  "text.config.radical-effects.option.empConfig.drainDistributionFactor": "Drain Distribution Factor"
+  "text.config.radical-effects.option.empConfig.drainDistributionFactor": "Drain Distribution Factor",
+
+  "coatings.header": "%s  %s",
+  "coatings.nbt": "§8Tag count: %s",
+  "coating.radical-effects.potion_0.name": "Potion",
+  "coating.radical-effects.potion_1.name": "Potion",
+  "coating.radical-effects.potion_2.name": "Potion",
+  "coating.radical-effects.potion_3.name": "Potion",
+  "coating.radical-effects.fire.name": "§4F§ci§6r§ee"
+
 }

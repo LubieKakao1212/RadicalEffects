@@ -1,0 +1,22 @@
+{
+coatings: [
+{
+id: "radical-effects:potion_0",
+usesLeft: 2,
+nbt: {
+potions: [
+"minecraft:invisibility"
+]
+}
+},
+{
+id: "radical-effects:potion_1",
+usesLeft: 30,
+nbt: {
+potions: [
+"minecraft:poison"
+]
+}
+}
+]
+}

@@ -1,6 +1,7 @@
 package com.lubiekakao1212;
 
 import com.lubiekakao1212.apilookup.IEmpLevel;
+import com.lubiekakao1212.coating.Coatings;
 import com.lubiekakao1212.config.RadicalConfigCommon;
 import com.lubiekakao1212.effects.RadicalStatusEffects;
 import com.lubiekakao1212.entity.RadicalEntities;
@@ -10,10 +11,6 @@ import com.lubiekakao1212.recipe.RadicalRecipes;
 import io.wispforest.owo.registration.reflect.FieldRegistrationHandler;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.DefaultAttributeRegistry;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +48,7 @@ public class RadicalEffects implements ModInitializer {
 
 		FieldRegistrationHandler.register(RadicalItems.class, MODID, false);
 		FieldRegistrationHandler.register(RadicalEntities.class, MODID, false);
+		FieldRegistrationHandler.register(Coatings.class, MODID, false);
 
 		RadicalRecipes.init();
 
