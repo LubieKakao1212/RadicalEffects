@@ -1,22 +1,7 @@
 {
-coatings: [
-{
-id: "radical-effects:potion_0",
-usesLeft: 2,
-nbt: {
-potions: [
-"minecraft:invisibility"
-]
+effect: {
+Id: 2,
+Amplifier: 0,
+Duration: 100
 }
-},
-{
-id: "radical-effects:potion_1",
-usesLeft: 30,
-nbt: {
-potions: [
-"minecraft:poison"
-]
-}
-}
-]
 }

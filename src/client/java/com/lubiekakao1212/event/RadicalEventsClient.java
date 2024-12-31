@@ -1,15 +1,12 @@
 package com.lubiekakao1212.event;
 
 import com.lubiekakao1212.apilookup.IEmpLevel;
-import com.lubiekakao1212.coating.ItemCoatingContainer;
-import com.lubiekakao1212.tooltip.TestTooltipComponent;
-import com.lubiekakao1212.tooltip.TestTooltipData;
+import com.lubiekakao1212.coating.container.ItemCoatingContainer;
 import com.lubiekakao1212.util.ReadOnly;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 
 import java.util.List;
 
@@ -32,5 +29,4 @@ public class RadicalEventsClient {
             coating.getCoating().addItemTooltip(new ReadOnly<>(coating), coatings, context, lines);
         }
     }
-
 }

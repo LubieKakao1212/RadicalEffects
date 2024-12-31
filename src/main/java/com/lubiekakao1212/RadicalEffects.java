@@ -2,6 +2,7 @@ package com.lubiekakao1212;
 
 import com.lubiekakao1212.apilookup.IEmpLevel;
 import com.lubiekakao1212.coating.Coatings;
+import com.lubiekakao1212.commands.RadicalEffectsCommand;
 import com.lubiekakao1212.config.RadicalConfigCommon;
 import com.lubiekakao1212.effects.RadicalStatusEffects;
 import com.lubiekakao1212.entity.RadicalEntities;
@@ -11,6 +12,7 @@ import com.lubiekakao1212.recipe.RadicalRecipes;
 import io.wispforest.owo.registration.reflect.FieldRegistrationHandler;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,11 +39,9 @@ public class RadicalEffects implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
 
-		//LOGGER.info("Hello Fabric world!");
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> RadicalEffectsCommand.register(dispatcher, registryAccess));
+
 		RadicalStatusEffects.init();
 
 		RadicalNetwork.init();

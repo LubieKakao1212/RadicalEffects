@@ -1,6 +1,7 @@
 package com.lubiekakao1212.coating;
 
-import com.lubiekakao1212.util.RadicalUtil;
+import com.lubiekakao1212.coating.container.IItemCoatingContainer;
+import com.lubiekakao1212.coating.container.ItemCoatingContainerWithEntity;
 import com.lubiekakao1212.util.ReadOnly;
 import com.lubiekakao1212.util.TextUtil;
 import com.lubiekakao1212.util.TranslationUtil;
@@ -9,11 +10,9 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 
-import java.util.EnumSet;
 import java.util.List;
 
 public interface ICoating {
@@ -27,7 +26,7 @@ public interface ICoating {
      * @param container Do not modify
      * @return Additional durability to consume, can be negative
      */
-    default <T> int getItemDurabilityLoss(CoatingUsage<T> usage, ReadOnly<CoatingInstance> instance, ICoatingContainer<ItemStack> container, World world) {
+    default <T> int getItemDurabilityLoss(CoatingUsage<T> usage, ReadOnly<CoatingInstance> instance, IItemCoatingContainer container, World world) {
         return 0;
     }
 
@@ -35,13 +34,13 @@ public interface ICoating {
      * Used to apply effects
      * @param instance can be modified
      */
-    default <T, C> void affectTarget(CoatingUsage<T> usage, ReadOnly<CoatingInstance> instance, ICoatingContainer<C> container, World world) { }
+    default <T> void affectTarget(CoatingUsage<T> usage, ReadOnly<CoatingInstance> instance, IItemCoatingContainer container, World world) { }
 
     /**
      * Called on every interaction, used to modify the item
      * @param instance Do not modify here
      */
-    default <T> ItemStack modifyItemUsed(CoatingUsage<T> usage, ReadOnly<CoatingInstance> instance, ICoatingContainer<ItemStack> container, ItemStack stack, World world) {
+    default <T> ItemStack modifyItemUsed(CoatingUsage<T> usage, ReadOnly<CoatingInstance> instance, IItemCoatingContainer container, ItemStack stack, World world) {
         if(stack.isDamageable()) {
             var damage = getItemDurabilityLoss(usage, instance, container, world);
             if(damage > 0) {
@@ -54,7 +53,7 @@ public interface ICoating {
     }
 
     /**
-     * {@link ICoating#modifyOnUse(CoatingUsage, CoatingInstance, ICoatingContainer, World)}
+     * {@link ICoating#modifyOnUse(CoatingUsage, CoatingInstance, IItemCoatingContainer, net.minecraft.world.World)}
      * @param usage
      * @param instance
      * @param container
@@ -62,7 +61,7 @@ public interface ICoating {
      * @return
      * @param <T>
      */
-    default <T, C> int getCoatingUsesUsed(CoatingUsage<T> usage, ReadOnly<CoatingInstance> instance, ICoatingContainer<C> container, World world) {
+    default <T> int getCoatingUsesUsed(CoatingUsage<T> usage, ReadOnly<CoatingInstance> instance, IItemCoatingContainer container, World world) {
         return 1;
     }
 
@@ -73,7 +72,7 @@ public interface ICoating {
      * @param container
      * @param world
      */
-    default <T, C> void modifyOnUse(CoatingUsage<T> usage, CoatingInstance instance, ICoatingContainer<C> container, World world) {
+    default <T, C> void modifyOnUse(CoatingUsage<T> usage, CoatingInstance instance, IItemCoatingContainer container, World world) {
         instance.addUses(-getCoatingUsesUsed(usage, new ReadOnly<>(instance), container, world));
     }
 
@@ -85,7 +84,7 @@ public interface ICoating {
 
     //TODO tick()
 
-    default void addItemTooltip(ReadOnly<CoatingInstance> instance, ICoatingContainer<ItemStack> container, TooltipContext context, List<Text> lines) {
+    default void addItemTooltip(ReadOnly<CoatingInstance> instance, IItemCoatingContainer container, TooltipContext context, List<Text> lines) {
         var value = instance.value();
         var translationKeyBase = TranslationUtil.ofCoating(value.getCoating());
         var translationKeyName = translationKeyBase + ".name";
@@ -110,11 +109,22 @@ public interface ICoating {
         }
     }
 
-    EnumSet<Designation> getDesignation();
+    /**
+     * {@link ICoating#instanceTypesEqual(CoatingInstance, CoatingInstance)} must be checked before this method is called <br/>
+     * Second parameter is merged into first <br/>
+     * First parameter is to be modified
+     * @param one
+     * @param two
+     */
+    default void merge(CoatingInstance one, ReadOnly<CoatingInstance> two) {
+        one.addUses(two.value().getUsesLeft());
+    }
 
-    enum Designation {
-        ITEM,
-        ITEM_FOOD,
-        ENTITY
+    /**
+     * Checks if two {@link CoatingInstance}s of this coating are considered equal
+     * @return
+     */
+    default boolean instanceTypesEqual(CoatingInstance a, CoatingInstance b) {
+        return a.getCoating() == this && b.getCoating() == this;
     }
 }

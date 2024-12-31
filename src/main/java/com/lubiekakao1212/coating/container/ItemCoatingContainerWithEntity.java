@@ -1,4 +1,4 @@
-package com.lubiekakao1212.coating;
+package com.lubiekakao1212.coating.container;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;

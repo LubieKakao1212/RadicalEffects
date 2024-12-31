@@ -7,52 +7,48 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
-public class NbtCoatingContainer implements ICoatingContainer<Void> {
+public class NbtCoatingContainerHelper {
 
     public static final NbtKey<NbtList> COATINGS_KEY = new NbtKey.ListKey<>("coatings", NbtKey.Type.COMPOUND);
 
-    private final Map<ICoating, CoatingInstance> coatingCache;
+    private final List<CoatingInstance> coatingCache = new ArrayList<>();
 
-    private NbtCoatingContainer() {
-        this.coatingCache = new HashMap<>();
+    private NbtCoatingContainerHelper() {
     }
 
-    @Override
-    public ReadOnly<Void> get() {
-        return new ReadOnly<>(null);
-    }
-
-    @Override
-    public @NotNull Optional<CoatingInstance> getCoatingByType(@NotNull ICoating coatingType) {
-        return Optional.ofNullable(coatingCache.get(coatingType));
-    }
-
-    @Override
     public Collection<CoatingInstance> getCoatings() {
-        return coatingCache.values();
+        return coatingCache;
     }
 
-    @Override
-    public void setCoating(@NotNull CoatingInstance instance) {
-        coatingCache.put(instance.getCoating(), instance);
+    public void addCoating(@NotNull CoatingInstance coating) {
+        var roCoating = new ReadOnly<>(coating);
+        boolean merged = false;
+        for(var existing : coatingCache) {
+            if(existing.isOfSameType(coating)) {
+                existing.getCoating().merge(existing, roCoating);
+                merged = true;
+                break;
+            }
+        }
+
+        if(!merged) {
+            coatingCache.add(coating);
+        }
+        //coatingCache.put(instance.getCoating(), instance);
     }
 
     /**
      * Updates the underlying thing to reflect the state of this container
      */
-    @Override
     public void applyChanges() { }
 
     @NotNull
     public NbtList toNbt() {
         var coatingsNbt = new NbtList();
 
-        for(var coating : coatingCache.values()) {
+        for(var coating : coatingCache) {
             if(coating.isEmpty())
                 continue;
             coatingsNbt.add(CoatingInstance.toNbt(coating));
@@ -68,17 +64,17 @@ public class NbtCoatingContainer implements ICoatingContainer<Void> {
     }
 
     @NotNull
-    public static NbtCoatingContainer empty() {
-        return new NbtCoatingContainer();
+    public static NbtCoatingContainerHelper empty() {
+        return new NbtCoatingContainerHelper();
     }
 
     @NotNull
-    public static NbtCoatingContainer fromList(@NotNull NbtList list) {
+    public static NbtCoatingContainerHelper fromList(@NotNull NbtList list) {
         var container = empty();
         for (var nbt : list) {
             var instance = CoatingInstance.fromNbt((NbtCompound) nbt);
             if(!instance.isEmpty()) {
-                container.setCoating(instance);
+                container.addCoating(instance);
             }
         }
 
@@ -86,7 +82,7 @@ public class NbtCoatingContainer implements ICoatingContainer<Void> {
     }
 
     @NotNull
-    public static NbtCoatingContainer fromCarrier(@NotNull NbtCarrier carrier) {
+    public static NbtCoatingContainerHelper fromCarrier(@NotNull NbtCarrier carrier) {
         return fromList(carrier.get(COATINGS_KEY));
     }
 

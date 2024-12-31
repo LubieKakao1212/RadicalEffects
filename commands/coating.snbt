@@ -13,7 +13,7 @@
     {
         coatings: [
             {
-                id: "radical-effects:potion_0",
+                id: "radical-effects:potion",
                 usesLeft: 2,
                 nbt: {
                     potions: [
@@ -22,7 +22,7 @@
                 }
             }
             {
-                id: "radical-effects:potion_0",
+                id: "radical-effects:potion",
                 usesLeft: 3,
                 nbt: {
                     potions: [
@@ -31,5 +31,12 @@
                 }
             }
         ]
+    }
+    {
+        effect: {
+            Id: 0,
+            Amplifier: 0,
+            Duration: 100,
+        }
     }
 ]

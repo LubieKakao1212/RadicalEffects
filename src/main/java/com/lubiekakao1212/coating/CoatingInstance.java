@@ -3,6 +3,7 @@ package com.lubiekakao1212.coating;
 import io.wispforest.owo.nbt.NbtCarrier;
 import io.wispforest.owo.nbt.NbtKey;
 import net.minecraft.nbt.NbtCompound;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -97,5 +98,9 @@ public class CoatingInstance implements NbtCarrier {
     @Override
     public <T> boolean has(@NotNull NbtKey<T> key) {
         return nbt.has(key);
+    }
+
+    public boolean isOfSameType(CoatingInstance other) {
+        return coating.instanceTypesEqual(this, other);
     }
 }

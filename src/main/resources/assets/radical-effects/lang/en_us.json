@@ -1,4 +1,8 @@
 {
+  "command.radical-effects.exception.permission" : "Insufficient Permission Level",
+  "command.radical-effects.exception.living-only" : "Command can only be executed by a LivingEntity",
+  "command.radical-effects.exception.requires-item" : "Entity must be holding an item in their main hand",
+
   "item.radical-effects.emp_crystal": "Emp Crystal",
   "item.radical-effects.emp_shard": "Emp Shard",
   "item.radical-effects.emp_arrow": "Emp Arrow",
@@ -16,10 +20,8 @@
 
   "coatings.header": "%s  %s",
   "coatings.nbt": "§8Tag count: %s",
-  "coating.radical-effects.potion_0.name": "Potion",
-  "coating.radical-effects.potion_1.name": "Potion",
-  "coating.radical-effects.potion_2.name": "Potion",
-  "coating.radical-effects.potion_3.name": "Potion",
+  "coating.radical-effects.potion.name": "Potion",
+  "coating.radical-effects.potion.malformed": "Malformed Tag",
   "coating.radical-effects.fire.name": "§4F§ci§6r§ee"
 
 }
