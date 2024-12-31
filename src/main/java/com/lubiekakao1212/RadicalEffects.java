@@ -50,6 +50,8 @@ public class RadicalEffects implements ModInitializer {
 		FieldRegistrationHandler.register(RadicalEntities.class, MODID, false);
 		FieldRegistrationHandler.register(Coatings.class, MODID, false);
 
+		Coatings.registerEffectCoatings();
+
 		RadicalRecipes.init();
 
 		IEmpLevel.init();

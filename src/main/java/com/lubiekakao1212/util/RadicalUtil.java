@@ -1,5 +1,13 @@
 package com.lubiekakao1212.util;
 
+import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.Identifier;
+
+import java.util.function.BiConsumer;
+
 public class RadicalUtil {
 
     private static final String[] UNITS = new String[]{
@@ -52,4 +60,10 @@ public class RadicalUtil {
     public static double log(double base, double arg) {
         return Math.log(arg) / Math.log(base);
     }
+
+    public static <T> void forRegistryEntries(Registry<T> registry, BiConsumer<Identifier, T> action) {
+        registry.streamEntries().forEach(reference -> action.accept(reference.registryKey().getValue(), reference.value()));
+        RegistryEntryAddedCallback.event(registry).register((rawId, id, object) -> action.accept(id, object));
+    }
+
 }
