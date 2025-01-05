@@ -1,6 +1,7 @@
 package com.lubiekakao1212.coating;
 
 import com.lubiekakao1212.RadicalEffects;
+import com.lubiekakao1212.entityeffects.EffectCounters;
 import com.lubiekakao1212.util.RadicalUtil;
 import io.wispforest.owo.registration.reflect.AutoRegistryContainer;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
@@ -31,10 +32,13 @@ public class Coatings implements AutoRegistryContainer<ICoating> {
         return ICoating.class;
     }
 
-    public static void registerEffectCoatings() {
+    public static void init() {
         RadicalUtil.forRegistryEntries(Registries.STATUS_EFFECT,
                 (id, effect) -> Registry.register(REGISTRY,
                         new Identifier(RadicalEffects.MODID, "se_" + id.getNamespace() + "_" + id.getPath()), new StatusEffectCoating(effect)));
-    }
 
+        RadicalUtil.forRegistryEntries(EffectCounters.REGISTRY,
+                (id, type) -> Registry.register(REGISTRY,
+                        new Identifier(RadicalEffects.MODID, "ct_" + id.getNamespace() + "_" + id.getPath()), new EffectCounterCoating(type)));
+    }
 }

@@ -20,6 +20,9 @@
 		],
 		"client": [
 			"com.lubiekakao1212.RadicalEffectsClient"
+		],
+		"cardinal-components": [
+			"com.lubiekakao1212.components.RadicalComponents"
 		]
 	},
 	"mixins": [
@@ -29,6 +32,11 @@
 			"environment": "client"
 		}
 	],
+	"custom": {
+		"cardinal-components": [
+			"radical-effects:effect_counters"
+		]
+	},
 	"depends": {
 		"fabricloader": ">=0.15.11",
 		"minecraft": "~1.19.4",

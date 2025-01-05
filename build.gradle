@@ -36,6 +36,13 @@ repositories {
 		name = "Terraformers"
 		url = "https://maven.terraformersmc.com/"
 	}
+
+	repositories {
+		maven {
+			name = "Ladysnake Mods"
+			url = 'https://maven.ladysnake.org/releases'
+		}
+	}
 }
 
 loom {
@@ -76,6 +83,14 @@ dependencies {
 
 	//ModMenu
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+
+	//Cardinal Components
+	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
+	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-item:${project.cca_version}"
+	include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+	include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
+	include "dev.onyxstudios.cardinal-components-api:cardinal-components-item:${project.cca_version}"
 }
 
 processResources {

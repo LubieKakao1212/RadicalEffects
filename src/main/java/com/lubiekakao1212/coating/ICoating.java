@@ -32,7 +32,7 @@ public interface ICoating {
 
     /**
      * Used to apply effects
-     * @param instance can be modified
+     * @param instance can't be modified
      */
     default <T> void affectTarget(CoatingUsage<T> usage, ReadOnly<CoatingInstance> instance, IItemCoatingContainer container, World world) { }
 

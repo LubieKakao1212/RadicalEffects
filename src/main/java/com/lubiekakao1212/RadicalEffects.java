@@ -6,6 +6,7 @@ import com.lubiekakao1212.commands.RadicalEffectsCommand;
 import com.lubiekakao1212.config.RadicalConfigCommon;
 import com.lubiekakao1212.effects.RadicalStatusEffects;
 import com.lubiekakao1212.entity.RadicalEntities;
+import com.lubiekakao1212.entityeffects.EffectCounters;
 import com.lubiekakao1212.item.RadicalItems;
 import com.lubiekakao1212.network.RadicalNetwork;
 import com.lubiekakao1212.recipe.RadicalRecipes;
@@ -50,7 +51,9 @@ public class RadicalEffects implements ModInitializer {
 		FieldRegistrationHandler.register(RadicalEntities.class, MODID, false);
 		FieldRegistrationHandler.register(Coatings.class, MODID, false);
 
-		Coatings.registerEffectCoatings();
+		Coatings.init();
+		EffectCounters.init();
+
 
 		RadicalRecipes.init();
 
